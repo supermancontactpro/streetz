@@ -1029,9 +1029,19 @@ textarea, input[type="file"] {
 textarea { resize: vertical; }
 textarea:focus, input[type="file"]:focus { outline: none; border-bottom-color: var(--ink); }
 
+#filter,
+#filter::placeholder,
+.empty {
+  font-family: Inter, "Segoe UI", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
 .empty {
   padding: 0 4vw 48px;
-  color: var(--muted);
 }
 
 .empty[hidden] { display: none; }
