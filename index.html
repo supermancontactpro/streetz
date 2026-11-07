@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StreetZ — La liste</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=block" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=28">
+</head>
+<body>
+  <div class="intro" id="intro" hidden>
+    <div class="intro-lock">
+      <p class="intro-word" aria-label="StreetZ">
+        <span>S</span><span>T</span><span>R</span><span>E</span><span>E</span><span>T</span><span class="z">Z</span>
+      </p>
+      <button type="button" class="intro-line" data-i18n="enterShop">Entrer dans la boutique</button>
+    </div>
+  </div>
+  <div class="top">
+  <header class="bar">
+    <div class="brand">
+      <a class="logo" href="index.html">Street<span class="z">Z</span></a>
+      <div class="picker picker-left" id="catalog"></div>
+    </div>
+    <nav class="socials" aria-label="Réseaux">
+      <a class="icon-btn" href="https://www.instagram.com/streetz" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <img src="instagram.png?v=1" alt="">
+      </a>
+      <a class="icon-btn" href="https://www.snapchat.com/add/streetz" target="_blank" rel="noopener noreferrer" aria-label="Snapchat">
+        <img src="snapchat.png?v=1" alt="">
+      </a>
+    </nav>
+    <div class="bar-end">
+      <div class="locale">
+        <button class="icon-btn" id="account" type="button" data-i18n-aria="account" aria-label="Compte">
+          <svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>
+          <img class="account-photo" id="account-photo" alt="" hidden>
+          <b id="account-mark" hidden></b>
+        </button>
+        <button class="icon-btn cart-icon" id="cart" type="button" hidden data-i18n-aria="cart" aria-label="Panier">
+          <svg class="glyph" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.3" fill="currentColor"/><circle cx="18" cy="20" r="1.3" fill="currentColor"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 4h2l2.2 11h11.2l1.6-7H7"/></svg>
+          <span id="cart-count"></span>
+        </button>
+        <div class="picker" id="lang"></div>
+        <div class="picker" id="currency"></div>
+      </div>
+    </div>
+  </header>
+  <div class="reviews" data-i18n-aria="reviews" aria-label="Avis clients">
+    <div class="reviews-track">
+      <div class="reviews-set">
+        <p><span class="stars" aria-hidden="true">★★★★★</span><span data-i18n="review1">La paire est arrivée nickel. — Lina</span></p>
+        <p><span class="stars" aria-hidden="true">★★★★★</span><span data-i18n="review2">Qualité au-dessus de ce que j’attendais. — Adam</span></p>
+        <p><span class="stars" aria-hidden="true">★★★★★</span><span data-i18n="review3">Livraison rapide, je recommande. — Inès</span></p>
+        <p><span class="stars" aria-hidden="true">★★★★★</span><span data-i18n="review4">Le fit est parfait, je reprends la même. — Noah</span></p>
+        <p><span class="stars" aria-hidden="true">★★★★★</span><span data-i18n="review5">Pièce conforme à la photo. — Maya</span></p>
+      </div>
+      <div class="reviews-set" aria-hidden="true">
+        <p><span class="stars" aria-hidden="true">★★★★★</span><span data-i18n="review1">La paire est arrivée nickel. — Lina</span></p>
+        <p><span class="stars" aria-hidden="true">★★★★★</span><span data-i18n="review2">Qualité au-dessus de ce que j’attendais. — Adam</span></p>
+        <p><span class="stars" aria-hidden="true">★★★★★</span><span data-i18n="review3">Livraison rapide, je recommande. — Inès</span></p>
+        <p><span class="stars" aria-hidden="true">★★★★★</span><span data-i18n="review4">Le fit est parfait, je reprends la même. — Noah</span></p>
+        <p><span class="stars" aria-hidden="true">★★★★★</span><span data-i18n="review5">Pièce conforme à la photo. — Maya</span></p>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Finds</p>
+      <h1>THE<br>PRODUCTS</h1>
+      <div class="hero-row">
+        <label class="search">
+          <span data-i18n="search">Chercher</span>
+          <input id="filter" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="Description…" autocomplete="off">
+        </label>
+      </div>
+    </section>
+
+    <section class="grid" id="grid"></section>
+    <p class="empty" id="empty" data-i18n="empty">Aucune pièce pour le moment.</p>
+  </main>
+
+  <button class="fab" id="add" type="button" data-i18n-aria="addImage" aria-label="Ajouter une image">+</button>
+
+  <dialog id="uploader">
+    <form id="upload-form">
+      <h2 data-i18n="newPiece">Nouvelle pièce</h2>
+      <label>
+        <span data-i18n="image">Image</span>
+        <input id="file" type="file" accept="image/*" required>
+      </label>
+      <label>
+        <span data-i18n="name">Nom</span>
+        <input id="description" type="text" maxlength="120" required data-i18n-placeholder="namePlaceholder" placeholder="Bottega Veneta Orbit Shoes Red">
+      </label>
+      <div class="tag-field">
+        <span data-i18n="tags">Étiquettes</span>
+        <div class="tag-box" id="upload-tags"></div>
+        <div class="tag-create">
+          <input id="new-tag" type="text" maxlength="40" data-i18n-placeholder="newTag" placeholder="Nouvelle catégorie">
+          <button type="button" id="add-tag" data-i18n="create">Créer</button>
+        </div>
+      </div>
+      <label>
+        <span data-i18n="price">Prix</span>
+        <input id="price" type="text" inputmode="decimal" required placeholder="60">
+      </label>
+      <label>
+        <span data-i18n="link">Lien</span>
+        <input id="link" type="url" required placeholder="https://…">
+      </label>
+      <p class="hint" id="upload-hint"></p>
+      <div class="actions">
+        <button type="submit" data-i18n="add">Ajouter</button>
+        <button type="button" class="ghost" id="cancel" data-i18n="cancel">Annuler</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="editor">
+    <form id="edit-form">
+      <h2 data-i18n="edit">Modifier</h2>
+      <label>
+        <span data-i18n="name">Nom</span>
+        <input id="edit-description" type="text" maxlength="120" required>
+      </label>
+      <div class="tag-field">
+        <span data-i18n="tags">Étiquettes</span>
+        <div class="tag-box" id="edit-tags"></div>
+        <div class="tag-create">
+          <input id="edit-new-tag" type="text" maxlength="40" data-i18n-placeholder="newTag" placeholder="Nouvelle catégorie">
+          <button type="button" id="edit-add-tag" data-i18n="create">Créer</button>
+        </div>
+      </div>
+      <label>
+        <span data-i18n="price">Prix</span>
+        <input id="edit-price" type="text" inputmode="decimal">
+      </label>
+      <label>
+        <span data-i18n="link">Lien</span>
+        <input id="edit-link" type="url" placeholder="https://…">
+      </label>
+      <p class="hint" id="edit-hint"></p>
+      <div class="actions">
+        <button type="submit" data-i18n="save">Enregistrer</button>
+        <button type="button" class="ghost" id="edit-cancel" data-i18n="cancel">Annuler</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog id="account-dialog" class="account-panel">
+    <form id="account-form">
+      <button type="button" class="panel-close" id="account-cancel" data-i18n-aria="close" aria-label="Fermer">×</button>
+      <p class="panel-logo">Street<span class="z">Z</span></p>
+      <h2 id="account-title" data-i18n="createTitle">Créer un compte</h2>
+      <p class="panel-lead" id="account-lead" data-i18n="accountLead">Entre ton Gmail pour continuer.</p>
+      <p class="account-status" id="account-status" hidden></p>
+      <div id="account-guest">
+        <label class="panel-field">
+          <span>Gmail</span>
+          <input id="gmail" type="email" inputmode="email" autocomplete="username" required placeholder="nom@gmail.com">
+        </label>
+        <label class="panel-field">
+          <span data-i18n="password">Mot de passe</span>
+          <span class="password-wrap">
+            <input id="password" type="password" autocomplete="current-password" required minlength="6" data-i18n-placeholder="passwordPlaceholder" placeholder="6 caractères minimum">
+            <button type="button" class="password-toggle" id="password-toggle" data-i18n-aria="showPassword" aria-label="Afficher le mot de passe">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+            </button>
+          </span>
+        </label>
+        <div class="captcha-row">
+          <label class="panel-field">
+            <span data-i18n="captcha">Captcha</span>
+            <input id="captcha" type="text" autocomplete="off" required data-i18n-placeholder="captchaPlaceholder" placeholder="Recopie le code">
+          </label>
+          <button type="button" class="captcha-refresh" id="captcha-refresh" data-i18n-aria="newCaptcha" aria-label="Nouveau captcha">
+            <canvas id="captcha-canvas" width="132" height="48"></canvas>
+          </button>
+        </div>
+        <label class="remember">
+          <input id="remember" type="checkbox">
+          <span data-i18n="remember">Se souvenir de moi</span>
+        </label>
+        <p class="hint" id="account-hint"></p>
+        <button type="submit" class="panel-submit" id="account-submit" data-i18n="createAccount">Créer mon compte</button>
+        <p class="panel-or"><span data-i18n="or">ou</span></p>
+        <button type="button" class="google-btn" id="google">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 8 3.1l5.7-5.7C34.2 6.1 29.4 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.3-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 12 24 12c3.1 0 5.8 1.2 8 3.1l5.7-5.7C34.2 6.1 29.4 4 24 4 16.3 4 9.6 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 10-2 13.6-5.2l-6.3-5.3C29.2 35.1 26.7 36 24 36c-5.3 0-9.7-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-1.1 3.2-3.5 5.7-6.7 7.2l6.3 5.3C37.4 38.4 44 34 44 24c0-1.2-.1-2.3-.4-3.5z"/></svg>
+          <span data-i18n="google">Continuer avec Google</span>
+        </button>
+      </div>
+      <button type="button" class="panel-logout" id="logout" data-i18n="logout" hidden>Se déconnecter</button>
+    </form>
+  </dialog>
+  <footer>
+    <p data-i18n="footer">©2026 Tous droits réservés.</p>
+  </footer>
+  <div class="cart-backdrop" id="cart-backdrop" hidden></div>
+  <aside class="cart-drawer" id="cart-drawer" hidden aria-labelledby="cart-title">
+    <div class="cart-head">
+      <h2 id="cart-title" data-i18n="cart">Panier</h2>
+      <button class="cart-close" id="cart-close" type="button" data-i18n-aria="close" aria-label="Fermer">×</button>
+    </div>
+    <div class="cart-lines" id="cart-lines"></div>
+    <div class="cart-foot">
+      <span data-i18n="total">Total</span>
+      <strong id="cart-total"></strong>
+    </div>
+  </aside>
+  <script src="locale.js?v=17"></script>
+  <script src="config.js?v=16"></script>
+  <script src="account.js?v=19"></script>
+  <script src="board.js?v=5"></script>
+</body>
+</html>
