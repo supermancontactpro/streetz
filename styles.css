@@ -13,6 +13,7 @@ html, body {
   background: var(--bg);
   color: var(--ink);
   font-family: Inter, "Segoe UI", sans-serif;
+  overflow-x: clip;
 }
 
 body {
@@ -517,7 +518,7 @@ body.cart-open { overflow: hidden; }
 .account-status { margin: 0; }
 
 .account-panel {
-  width: min(420px, calc(100vw - 32px));
+  width: min(420px, calc(100% - 32px));
   padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 22px;
@@ -995,8 +996,8 @@ input:focus { outline: none; border-bottom-color: var(--ink); }
 }
 
 dialog {
-  width: min(440px, calc(100vw - 32px));
-  max-height: calc(100vh - 48px);
+  width: min(440px, calc(100% - 32px));
+  max-height: min(640px, calc(100dvh - 32px));
   overflow: auto;
   padding: 22px;
   background: #101010;
@@ -1088,13 +1089,62 @@ footer p {
 
 @media (max-width: 800px) {
   .hero-row, .actions { display: grid; }
-  .bar { grid-template-columns: 1fr auto; row-gap: 14px; }
-  .socials { grid-column: 1 / -1; grid-row: 1; }
-  .brand { grid-row: 2; }
-  .bar-end { grid-row: 2; width: auto; justify-self: end; }
-  h1 { font-size: clamp(3.4rem, 18vw, 5rem); }
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 8px;
+    padding: 14px max(16px, env(safe-area-inset-right)) 12px max(16px, env(safe-area-inset-left));
+  }
+  .brand,
+  .bar-end,
+  .locale { display: contents; }
+  .bar::after {
+    content: "";
+    order: 3;
+    flex-basis: 100%;
+    height: 0;
+  }
+  .logo { order: 1; white-space: nowrap; }
+  .socials { order: 2; margin-left: auto; justify-self: auto; }
+  #account, #cart { order: 2; }
+  #catalog { order: 4; min-width: 0; }
+  #lang { order: 5; margin-left: auto; }
+  #currency { order: 6; }
+  .picker-btn { white-space: nowrap; }
+  h1 { font-size: clamp(2.5rem, 13.5vw, 4.6rem); }
+  .hero { padding: 4vh 16px 1vh; }
+  .grid { padding: 22px 16px 110px; }
+  .intro-word { font-size: clamp(2.15rem, 11.2vw, 4rem); }
+  .intro-line { text-align: center; padding: 0 12px; }
+  .reviews p { font-size: 0.8rem; line-height: 1.2; padding: 16px 18px 14px; }
+  .fab {
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+  }
+  .cart-drawer {
+    width: min(420px, 100%);
+    height: 100dvh;
+  }
+  #filter,
+  #filter::placeholder,
+  .account-panel input,
+  dialog input,
+  dialog textarea {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 640px) {
-  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 10px; }
+  .link-btn {
+    letter-spacing: 0.04em;
+    font-size: 0.68rem;
+    padding: 10px 8px;
+    line-height: 1.35;
+  }
+  .caption { font-size: 0.82rem; }
+  .price { font-size: 1.05rem; }
+  .empty { padding: 0 16px 40px; }
+  footer { padding: 22px 16px 28px; }
 }
